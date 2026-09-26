@@ -15,6 +15,51 @@
 <br><br>
 
 <a href="/">Yeni analiz yap</a>
+<h1>Analiz Sonucu</h1>
 
+<p><strong>Adres:</strong></p>
+
+<code>{{ address }}</code>
+
+<hr>
+
+<h2>Son 10 İşlem</h2>
+
+{% if transactions %}
+
+<ul>
+
+{% for tx in transactions %}
+
+<li>
+
+Hash:
+{{ tx.hash[:18] }}...
+
+<br>
+
+Blok:
+{{ tx.blockNumber }}
+
+<br>
+
+ETH:
+{{ tx.value }}
+
+</li>
+
+<br>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>İşlem bulunamadı.</p>
+
+{% endif %}
+
+<a href="/">Geri Dön</a>
 </body>
 </html>
