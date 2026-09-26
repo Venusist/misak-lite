@@ -2,6 +2,7 @@ import os
 import requests
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+from data_fetcher import fetch_transactions, DataFetchError
 
 load_dotenv()
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
@@ -15,7 +16,7 @@ def index():
 @app.route("/analyze", methods=["POST"])
 def analyze():
 
-    address = request.form["address"].strip()
+    address = request.form.get("address", "").strip()
 
     if not address.startswith("0x"):
         return "Hata: Adres 0x ile başlamalı."
@@ -31,6 +32,8 @@ def analyze():
         "result.html",
         address=address,
         transactions=transactions
+
+
     )
 
 def get_transactions(address):
